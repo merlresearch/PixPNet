@@ -1,0 +1,39 @@
+seed: 42
+dataset:
+  name: CARS224
+  val-size: .1
+  augment-factor: 16
+model:
+  name: protonet
+  init-weights: true
+  feature-extractor: vgg16_bn
+  feature-layer: maxpool5
+  pretrained: true
+  num-prototypes: 1960
+  prototype-dim: 192
+  prototype-kernel-size: 1
+  prototype-activation: log
+  add-on-layers-type: regular
+  epsilon: 1e-6
+  learn-prototypes: true
+  class-specific: true
+  readout-type: proto
+  distance: cosine
+optimizer:
+  name: adam
+  lr: 3e-3
+  fine-tune-lr: 1e-4
+  readout-lr: 1e-4
+  lr-scheduler: cosine
+  warmup-period: 5
+  weight-decay: 1e-3
+train:
+  epochs: 20
+  push-prototypes: true
+  push-every: 4
+  batch-size: 64
+  no-checkpoint: true
+loss:
+  xent: 1.0
+  cluster: 0.0
+  separation: 0.0

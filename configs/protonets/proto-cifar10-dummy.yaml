@@ -1,0 +1,39 @@
+seed: 42
+dataset:
+  name: CIFAR10
+  val-size: .1
+  augment-factor: 1
+model:
+  name: protonet
+  init-weights: true
+  feature-extractor: vgg11_bn
+  feature-layer: maxpool4
+  pretrained: true
+  num-prototypes: 20
+  prototype-dim: 16
+  prototype-kernel-size: 1
+  prototype-activation: log
+  add-on-layers-type: regular
+  epsilon: 1e-6
+  learn-prototypes: true
+  class-specific: true
+  readout-type: proto
+  distance: cosine
+optimizer:
+  name: adam
+  lr: 3e-3
+  fine-tune-lr: 1e-4
+  readout-lr: 1e-4
+  lr-scheduler: cosine
+  warmup-period: 0
+  weight-decay: 1e-3
+train:
+  epochs: 1
+  push-prototypes: true
+  push-every: 1
+  batch-size: 32
+  no-checkpoint: true
+loss:
+  xent: 1.0
+  cluster: 0.0
+  separation: 0.0
